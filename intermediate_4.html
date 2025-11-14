@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ByLKI Grammar - Intermediate 4</title>
+    <style>
+        /* CSS für den glänzenden blauen Look */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f4c75 0%, #001f3f 100%);
+            color: #e6f7ff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #90caf9;
+            text-shadow: 0 0 15px rgba(144, 202, 249, 0.5);
+        }
+
+        .exercise-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            text-align: left;
+        }
+
+        .exercise-text {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        /* Styling für die Lücke und das Prompt */
+        .gap-input-wrapper {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 3px;
+        }
+
+        .gap-input {
+            width: 180px; /* Breite für lange Antworten */
+            padding: 5px;
+            border: 2px solid #66bbff;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: 1em;
+            transition: border-color 0.3s;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .gap-prompt {
+            display: block;
+            font-size: 0.8em;
+            color: #90caf9;
+            text-align: center;
+        }
+
+        /* Feedback-Styles */
+        .gap-input.correct {
+            border-color: #4caf50; /* Grün */
+            background-color: rgba(76, 175, 80, 0.2);
+        }
+
+        .gap-input.incorrect {
+            border-color: #f44336; /* Rot */
+            background-color: rgba(244, 67, 54, 0.2);
+        }
+
+        .feedback {
+            color: #f44336;
+            font-size: 0.9em;
+            margin-top: 5px;
+            padding: 5px 10px;
+            border-left: 3px solid #f44336;
+            background-color: rgba(244, 67, 54, 0.1);
+            display: none; /* Initial versteckt */
+        }
+
+        .controls {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .action-button {
+            padding: 10px 25px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        #check-button {
+            color: #001f3f;
+            background: linear-gradient(145deg, #4caf50, #388e3c);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        #check-button:hover {
+            background: linear-gradient(145deg, #81c784, #4caf50);
+            transform: translateY(-2px);
+        }
+
+        #home-button {
+            color: #ffffff;
+            background: linear-gradient(145deg, #5c6bc0, #3949ab);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-decoration: none;
+            padding: 10px 25px;
+        }
+        #home-button:hover {
+            background: linear-gradient(145deg, #7986cb, #5c6bc0);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Intermediate (B2+) - Übung 4: Tense Review & Gerunds</h1>
+    </header>
+
+    <div class="exercise-container">
+        <div class="exercise-text" id="exercise-output">
+            <!-- Text wird hier dynamisch über JavaScript generiert -->
+        </div>
+
+        <div class="controls">
+            <button id="check-button" class="action-button" onclick="checkExercise()">Ergebnisse prüfen</button>
+            <a href="index.html" id="home-button" class="action-button">Zurück zur Auswahl</a>
+        </div>
+        <div id="result-message" style="color: #4caf50; font-size: 1.2em; margin-top: 20px; text-align: center; display: none;"></div>
+    </div>
+
+    <script>
+      // Datenstruktur für intermediate_4.html (Thema: Neuseeländische Naturschutzbemühungen)
+const exerciseData = [
+    {
+        prompt: "(try)",
+        textBefore: "New Zealand's Department of Conservation",
+        textAfter: "to achieve its Predator Free 2050 goal.",
+        correctAnswers: ["is trying"],
+        feedback: "Das Vorhaben ist eine laufende Bemühung in der Gegenwart, was das Present Progressive ('is trying') erfordert."
+    },
+    {
+        prompt: "(expect)",
+        textBefore: "Many native birds like the Kiwi bird",
+        textAfter: "to be fully protected within the next few decades.",
+        correctAnswers: ["are expected"],
+        feedback: "Die Vögel können nicht selbst erwarten, sondern werden erwartet (Passiv) in der Gegenwart (Simple Present Passive)."
+    },
+    {
+        prompt: "(avoid)",
+        textBefore: "Conservationists strictly",
+        textAfter: "discussing controversial methods in public.",
+        correctAnswers: ["avoid discussing"],
+        feedback: "Das Verb 'avoid' erfordert, dass das folgende Verb im Gerundium ('discussing') steht."
+    },
+    {
+        prompt: "(used - see)",
+        textBefore: "Locals are accustomed",
+        textAfter: "rare species in their gardens now.",
+        correctAnswers: ["to seeing"],
+        feedback: "Der Ausdruck 'to be accustomed to' (gewöhnt sein an) verwendet 'to' als Präposition. Daher muss das Verb im Gerundium ('seeing') folgen."
+    },
+    {
+        prompt: "(succeed)",
+        textBefore: "They have already",
+        textAfter: "in reintroducing several species into predator-free sanctuaries.",
+        correctAnswers: ["succeeded"],
+        feedback: "Die Handlung hat eine Auswirkung auf die Gegenwart ('have already'), was das Present Perfect ('have succeeded') verlangt."
+    },
+    {
+        prompt: "(report)",
+        textBefore: "Yesterday, a new protected area",
+        textAfter: "in the South Island's high country.",
+        correctAnswers: ["was reported"],
+        feedback: "Die neue Gegend wurde berichtet (Passiv) an einem spezifischen Zeitpunkt in der Vergangenheit (Simple Past Passive)."
+    },
+    {
+        prompt: "(if - not - implement)",
+        textBefore: "If these measures",
+        textAfter: "the Kiwi bird would have become extinct by now.",
+        correctAnswers: ["had not been implemented", "hadn't been implemented"],
+        feedback: "Der Hauptsatz ('would have become') zeigt If-Clause Typ 3 an. Die Bedingung muss im Past Perfect Passive stehen (Maßnahmen werden implementiert)."
+    },
+    {
+        prompt: "(responsible)",
+        textBefore: "We act",
+        textAfter: "towards the environment.",
+        correctAnswers: ["responsibly"],
+        feedback: "Das Wort beschreibt das Verb 'act' (wie wir handeln) und muss daher das Adverb ('responsibly') sein."
+    },
+    {
+        prompt: "(???)",
+        textBefore: "The challenge of conservation is harder",
+        textAfter: "ever before.",
+        correctAnswers: ["than"],
+        feedback: "Der Komparativ ('harder') erfordert das Vergleichswort 'than'."
+    },
+    {
+        prompt: "(not - allow)",
+        textBefore: "The reserve rules",
+        textAfter: "pets inside the gates to protect the wildlife.",
+        correctAnswers: ["do not allow", "don't allow"],
+        feedback: "Da es sich um eine allgemeingültige Regel handelt, wird das Simple Present (Verneinung: 'do not allow') verwendet."
+    }
+];
+
+
+
+
+        // Funktion zum Einfügen der Sätze in das HTML
+        function renderSentences() {
+            const outputDiv = document.getElementById('exercise-output');
+            let html = '<p class="exercise-text">';
+            
+            exerciseData.forEach((item, index) => {
+                const gapHtml = `
+                    <span class="gap-input-wrapper">
+                        <input type="text" id="gap-${index}" class="gap-input" placeholder="" aria-label="Lücke ${index + 1}">
+                        <span class="gap-prompt">${item.prompt}</span>
+                    </span>
+                `;
+                // Text zusammenfügen: Text vor Lücke + Lücke + Text nach Lücke
+                html += `${item.textBefore} ${gapHtml} ${item.textAfter}`;
+            });
+
+            html += '</p>'; // Absatz schließen
+
+            // Feedback-Boxen unterhalb des Textes (werden bei Fehler angezeigt)
+            let feedbackHtml = '';
+            exerciseData.forEach((item, index) => {
+                feedbackHtml += `<div id="feedback-${index}" class="feedback"></div>`;
+            });
+
+            outputDiv.innerHTML = html + feedbackHtml;
+        }
+
+        // Hauptfunktion zur Überprüfung der Antworten
+        function checkExercise() {
+            let allCorrect = true;
+            let correctCount = 0;
+
+            exerciseData.forEach((item, index) => {
+                const inputField = document.getElementById(`gap-${index}`);
+                const feedbackDiv = document.getElementById(`feedback-${index}`);
+                
+                // Eingabe des Benutzers standardisieren: Kleinschreibung, überflüssige Leerzeichen entfernen
+                const userAnswer = inputField.value.toLowerCase().trim().replace(/\s\s+/g, ' ');
+
+                // Erstellung einer standardisierten Liste der korrekten Antworten
+                const standardizedAnswers = item.correctAnswers.map(ans => ans.toLowerCase().trim().replace(/\s\s+/g, ' '));
+
+                // Überprüfung
+                if (standardizedAnswers.includes(userAnswer)) {
+                    inputField.classList.remove('incorrect');
+                    inputField.classList.add('correct');
+                    feedbackDiv.style.display = 'none';
+                    correctCount++;
+                } else {
+                    inputField.classList.remove('correct');
+                    inputField.classList.add('incorrect');
+                    
+                    // Anzeige der Fehlererklärung
+                    const answersDisplay = item.correctAnswers.map(ans => `"${ans}"`).join(' oder ');
+                    feedbackDiv.textContent = `Lücke ${index + 1}: Falsch. Eine korrekte Lösung wäre z.B. ${answersDisplay}. Erklärung: ${item.feedback}`;
+                    feedbackDiv.style.display = 'block';
+                    allCorrect = false;
+                }
+            });
+
+            const resultMessage = document.getElementById('result-message');
+            resultMessage.style.display = 'block';
+
+            if (allCorrect) {
+                resultMessage.textContent = 'Glückwunsch! Alle Lücken korrekt ausgefüllt!';
+                resultMessage.style.color = '#4caf50';
+            } else {
+                resultMessage.textContent = `Überprüfung abgeschlossen: ${correctCount} von ${exerciseData.length} Lücken korrekt. Bitte überprüfen Sie die markierten Fehler.`;
+                resultMessage.style.color = '#f44336';
+            }
+        }
+
+        // Starte die Anwendung
+        document.addEventListener('DOMContentLoaded', renderSentences);
+    </script>
+
+</body>
+</html>
